@@ -11,7 +11,7 @@ const MovieBlock = (props) => {
         <div className="title-and-image">
           <img className="img-fluid" src={image} alt={title} />
           <div className="stat-row">
-            <h3>{title}</h3>
+            <h3>{title.substring(0, 10)}</h3>
           </div>
         </div>
       </Link>

@@ -14,6 +14,7 @@ const fade = keyframes`
 export const MovieBlock = styled.div`
   background-color: var(--white);
   padding: 0.3rem;
+  margin-top: 5px;
   width: 20%;
   height: 25%;
   border-radius: 0.5rem;
@@ -23,7 +24,7 @@ export const MovieBlock = styled.div`
   div.title-and-image {
     img {
       width: 100%;
-      height: 60%;
+      height: 100%;
     }
 
     h3 {
@@ -35,18 +36,28 @@ export const MovieBlock = styled.div`
     }
   }
 
+  @media (max-width: 2560px) {
+    width: 20%;
+    height: auto;
+  }
+
+  @media (max-width: 1920px) {
+    width: 20%;
+    height: auto;
+  }
 
   @media (max-width: 1280px) {
     width: 25%;
-    height: 19%;
+    height: auto;
   }
 
   @media (max-width: 725px) {
     width: 30%;
+    height: auto;
   }
 
   @media (max-width: 580px) {
     width: 100%;
-    height: 5%;
+    height: auto;
   }
 `;

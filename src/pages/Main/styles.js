@@ -44,6 +44,12 @@ const fadeFromRight = keyframes`
 
 export const InputSection = styled.section`
   height: 37vh;
+  background-color: var(--color-primary);
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 
   .container {
     width: 75%;
@@ -52,14 +58,6 @@ export const InputSection = styled.section`
     flex-direction: column;
     align-items: center;
   }
-
-  background-color: var(--color-primary);
-  color: var(--white);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 1.5rem;
-  width: 100%;
 
   .logo {
     margin-bottom: 1.8rem;
