@@ -108,6 +108,27 @@ export const InputSection = styled.section`
     }
   }
 
+  @media (max-width: 3600px) {
+    .container {
+      margin-top: 10%;
+    }
+  }
+
+  @media (max-width: 2560px) {
+    .container {
+      margin-top: 8%;
+    }
+  }
+
+  @media (max-width: 1920px) {
+    form {
+      width: 50%;
+    }
+    .container {
+      margin-top: 5%;
+    }
+  }
+
   @media (max-width: 1200px) {
     form {
       width: 50%;
@@ -200,7 +221,7 @@ export const MoviesSection = styled.section`
   background: transparent;
 
   .container {
-    width: width: 80%;
+    width: 80%;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -223,6 +244,12 @@ export const MoviesSection = styled.section`
       font-weight: 500;
       color: var(--color-primary);
       animation: ${fadeFromRight} 1.4s ease;
+    }
+  }
+
+  @media (max-width: 3600px) {
+    .container {
+      width: 100%;
     }
   }
 

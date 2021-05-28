@@ -36,6 +36,12 @@ export const MovieBlock = styled.div`
     }
   }
 
+  @media (max-width: 3600px) {
+    .title-and-image {
+      width: 100%;
+    }
+  }
+
   @media (max-width: 2560px) {
     width: 20%;
     height: auto;
