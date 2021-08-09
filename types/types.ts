@@ -3,6 +3,7 @@ export interface Movie {
 	title: string,
 	release_date: string,
 	overview: string | null,
+	poster_path: string,
 };
 
 export interface Movies {

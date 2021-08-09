@@ -1,28 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Movie } from '../../types/types';
+import { Link } from 'react-router-dom';
 
-const MovieComponent = (props: Movie) => {
+const DEFAULT_IMG = "https://media.gettyimages.com/photos/old-film-perforated-celluloid-picture-id155278297?s=2048x2048";
+const ENDPOINT_IMG = `https://image.tmdb.org/t/p/w500/`;
 
-  const [movie, setMovie] = useState<Movie>({});
-  const [loading, setLoading] = useState<Boolean>(false);
+function getImage(path) {
+  if(!path) {
+    return DEFAULT_IMG;
+  }
+  return `${ENDPOINT_IMG}/${path}`;
+}
 
-  useEffect(() => {
-    setLoading(true);
-    fetch(`https://api.themoviedb.org/3/movie/${props.match.params.id}?api_key=a1279933de606b4374a2c93a1d0127a9`)
-      .then(res => res.json())
-      .then(res => setMovie(res))
-      .catch(err => console.log(err))
-    setLoading(false);
-  }, [props.match.params.id]);
-
+const MovieComponent = ({ movie }: Movie) => {
   return (
-    <>
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
+    <div>
+      <Link to={`/movie/${encodeURIComponent(movie.id)}`}>
+        <img src={getImage(movie.poster_path)} alt="img" />
         <p>{movie.title}</p>
-      )}
-    </>
+      </Link>
+    </div>
   );
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import Main from './components/Main';
-import MovieComponent from './components/Movie';
+import MovieDetails from './components/MovieDetails';
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
@@ -9,7 +9,7 @@ const Routes: React.FC = () => {
     <BrowserRouter>
       <Switch>
         <Route path="/" component={Main} exact />
-        <Route path="/movie/:id" component={MovieComponent} exact />
+        <Route path="/movie/:id" component={MovieDetails} exact />
       </Switch>
     </BrowserRouter>
   )

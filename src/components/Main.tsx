@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Movies } from '../../types/types';
-
-import { Link } from 'react-router-dom';
+import MovieComponent from './Movie';
 
 const Main = () => {
 
@@ -9,6 +8,8 @@ const Main = () => {
   const [movies, setMovies] = useState<Movies>([]);
 	const [totalPages, setTotalPages] = useState<number>(0);
 	const [loading, setLoading] = useState<boolean>(false);
+
+  const pages = new Array(totalPages).fill(null).map((v, i) => i);
 
   async function fetchMovies() {
     setLoading(true);
@@ -31,7 +32,6 @@ const Main = () => {
     if(!query) {
       console.log("You must type something");
     }
-
     await fetchMovies();
   }
 
@@ -45,11 +45,9 @@ const Main = () => {
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <div>
-          {movies.map(m => (
-            <Link to={`/movie/${encodeURIComponent(m.id)}`} key={m.id}><p>{m.title}</p></Link>
-          ))}
-        </div>
+        movies.map(m => (
+          <MovieComponent movie={m} key={m.id} />
+        ))
       )}
     </>
   );
