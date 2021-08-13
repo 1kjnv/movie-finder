@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Movies } from '../../types/types';
+import { Movies } from '../types/types';
 import MovieComponent from './Movie';
 import Header from './Header';
 import { MenuBlock } from '../styles/Menu';
 import { Pagination } from '../styles/Pagination';
+import { MainBlock } from '../styles/Main';
 
 const Main: React.FC<Movies> = () => {
 
@@ -13,6 +14,15 @@ const Main: React.FC<Movies> = () => {
   const [pageNumber, setPageNumber] = useState(1);
 	const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    const moviesFromStorage = localStorage.getItem('movies');
+    const queryFromStorage = localStorage.getItem('query');
+    if(moviesFromStorage && queryFromStorage) {
+      setMovies(JSON.parse(moviesFromStorage));
+      setQuery(queryFromStorage);
+    }
+  }, [])
+
   async function searchMovies() {
     setLoading(true);
     fetch(`https://api.themoviedb.org/3/search/movie?api_key=a1279933de606b4374a2c93a1d0127a9&query=${query}&page=${pageNumber}`)
@@ -20,6 +30,8 @@ const Main: React.FC<Movies> = () => {
       .then(({ total_pages, results }) => {
         setMovies(results);
         setTotalPages(total_pages);
+        localStorage.setItem('movies', JSON.stringify(movies));
+        localStorage.setItem('query', query);
       })
       .catch(err => console.log(err))
     setLoading(false);
@@ -44,7 +56,7 @@ const Main: React.FC<Movies> = () => {
   }
 
   return (
-    <>
+    <MainBlock>
       <Header handleChange={handleChange} handleSubmit={handleSubmit} query={query} />
       
       <MenuBlock>
@@ -71,7 +83,7 @@ const Main: React.FC<Movies> = () => {
           )
         }
       </MenuBlock>
-    </>
+    </MainBlock>
   );
 };
 

@@ -5,5 +5,5 @@ export const MainBlock = styled.div`
   width: 100%;
   border: 1px solid silver;
   padding-bottom: 3%;
-  background-color: #FFFEFC;
+  background: #FFFEFC;
 `;

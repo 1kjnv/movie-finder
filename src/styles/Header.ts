@@ -1,15 +1,22 @@
 import styled from "styled-components";
 
-export const HeaderStyle = styled.div`
-  background-color: silver;
-  text-align: center;
-  height: 20%;
+export const HeaderBlock = styled.div`
+  background: #F9F5F1
   width: 100%;
+  height: 30px;
+`;
+
+export const Searchbar = styled.div`
+  border: 1px solid green;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
   
-  ul li {
-    list-style:none;
-    display: inline-block;
-    margin-left: 5px;
-    margin-right: 5px;
+  #searchArea {
+    width: 80%;
+  }
+
+  #submitButton {
+    width: 20%;
   }
 `;

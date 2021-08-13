@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Movie } from '../../types/types';
+import { Movie } from '../types/types';
 
 const DEFAULT_IMG = "https://media.gettyimages.com/photos/old-film-perforated-celluloid-picture-id155278297?s=2048x2048";
 const ENDPOINT_IMG = `https://image.tmdb.org/t/p/w500/`;
