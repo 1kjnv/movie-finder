@@ -1,5 +1,5 @@
 import React from 'react';
-import { Movie } from '../../types/types';
+import { Movie } from '../types/types';
 import { Link } from 'react-router-dom';
 import { MovieBlock } from '../styles/Movie';
 

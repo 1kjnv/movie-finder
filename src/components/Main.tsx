@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Movies } from '../../types/types';
+import { Movies } from '../types/types';
 import MovieComponent from './Movie';
 import Header from './Header';
 import { MenuBlock } from '../styles/Menu';
 import { Pagination } from '../styles/Pagination';
+import { MainBlock } from '../styles/Main';
 
 const Main: React.FC<Movies> = () => {
 
@@ -13,17 +14,34 @@ const Main: React.FC<Movies> = () => {
   const [pageNumber, setPageNumber] = useState(1);
 	const [loading, setLoading] = useState(false);
 
-  async function searchMovies() {
+  const pages = new Array(totalPages).fill(null).map((v, i) => i);
+
+  useEffect(() => {
+    const moviesFromStorage = localStorage.getItem('movies');
+    const queryFromStorage = localStorage.getItem('query');
+    if(moviesFromStorage && queryFromStorage) {
+      setMovies(JSON.parse(moviesFromStorage));
+      setQuery(queryFromStorage);
+    }
+  }, [])
+
+  useEffect(() => {
     setLoading(true);
     fetch(`https://api.themoviedb.org/3/search/movie?api_key=a1279933de606b4374a2c93a1d0127a9&query=${query}&page=${pageNumber}`)
       .then(res => res.json())
-      .then(({ total_pages, results }) => {
+      .then(({ total_pages, results, page }) => {
         setMovies(results);
         setTotalPages(total_pages);
+        setPageNumber(page);
+        localStorage.setItem('movies', JSON.stringify(movies));
+        localStorage.setItem('query', query);
+        localStorage.setItem('pageNumber', page);
+        console.log(`page: ${page}`);
+        console.log(`total pages: ${total_pages}`);
       })
       .catch(err => console.log(err))
     setLoading(false);
-  };
+  }, [query, pageNumber]);
 
   const goPrev = () => {
     setPageNumber(Math.max(0, pageNumber - 1));
@@ -31,20 +49,18 @@ const Main: React.FC<Movies> = () => {
 
   const goNext = () => {
     setPageNumber(Math.min(totalPages, pageNumber + 1));
-    console.log(pageNumber);
   };
 
   const handleChange = (e: any) => {
     setQuery(e.target.value);
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
-    await searchMovies();
   }
 
   return (
-    <>
+    <MainBlock>
       <Header handleChange={handleChange} handleSubmit={handleSubmit} query={query} />
       
       <MenuBlock>
@@ -71,7 +87,7 @@ const Main: React.FC<Movies> = () => {
           )
         }
       </MenuBlock>
-    </>
+    </MainBlock>
   );
 };
 
