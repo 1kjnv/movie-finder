@@ -7,16 +7,12 @@ export const HeaderBlock = styled.div`
 `;
 
 export const Searchbar = styled.div`
-  border: 1px solid green;
   width: 50%;
   margin-left: auto;
   margin-right: auto;
-  
-  #searchArea {
-    width: 80%;
-  }
+  padding-top: 3%;
 
-  #submitButton {
-    width: 20%;
+  #searchArea {
+    width: 100%;
   }
 `;

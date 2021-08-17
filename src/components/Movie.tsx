@@ -18,7 +18,13 @@ const MovieComponent = ({ movie }: Movie) => {
     <MovieBlock>
       <Link to={`/movie/${encodeURIComponent(movie.id)}`}>
         <img src={getImage(movie.poster_path)} alt="img" />
-        <p>{movie.title}</p>
+        {
+          movie.title.length < 25 ? (
+            <h4>{movie.title}</h4>
+          ) : (
+            <h4>{movie.title.slice(0, 25)}</h4>
+          )
+        }
       </Link>
     </MovieBlock>
   );

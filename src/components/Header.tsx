@@ -8,7 +8,6 @@ const Header = (props: any) => {
     <HeaderBlock>
       <Searchbar>
         <input id="searchArea" type="text" onChange={props.handleChange} value={props.query} />
-        <input id="submitButton" type="submit" onClick={props.handleSubmit} value="Search" />
       </Searchbar>
     </HeaderBlock>
   )

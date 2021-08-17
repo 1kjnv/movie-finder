@@ -1,14 +1,20 @@
 import styled from "styled-components";
 
 export const MovieBlock = styled.div`
-	width: 24%;
-	display: inline-block;
-	height: 30%;
-	margin-left: 5px;
-	margin-right: 5px;
+	border: 1px solid black;
+	width: 100%;
+	height: 10%;
 
 	img {
-		height: 100%;
-		width: 100%;
+		border: 1px solid red;
+		height: 10%;
+		width: 10%;
+		display: inline-flex;
+	}
+
+	h4 {
+		display: inline-flex;
+		text-align: center;
+		width: 80%;
 	}
 `;

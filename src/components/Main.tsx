@@ -5,6 +5,7 @@ import Header from './Header';
 import { MenuBlock } from '../styles/Menu';
 import { Pagination } from '../styles/Pagination';
 import { MainBlock } from '../styles/Main';
+import { SearchBlock, ViewResultsBlock } from '../styles/Search';
 
 const Main: React.FC<Movies> = () => {
 
@@ -27,7 +28,7 @@ const Main: React.FC<Movies> = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`https://api.themoviedb.org/3/search/movie?api_key=a1279933de606b4374a2c93a1d0127a9&query=${query}&page=${pageNumber}`)
+    fetch(`https://api.themoviedb.org/3/search/movie?api_key=a1279933de606b4374a2c93a1d0127a9&query=${query}`)
       .then(res => res.json())
       .then(({ total_pages, results, page }) => {
         setMovies(results);
@@ -36,12 +37,10 @@ const Main: React.FC<Movies> = () => {
         localStorage.setItem('movies', JSON.stringify(movies));
         localStorage.setItem('query', query);
         localStorage.setItem('pageNumber', page);
-        console.log(`page: ${page}`);
-        console.log(`total pages: ${total_pages}`);
       })
       .catch(err => console.log(err))
     setLoading(false);
-  }, [query, pageNumber]);
+  }, [query]);
 
   const goPrev = () => {
     setPageNumber(Math.max(0, pageNumber - 1));
@@ -55,38 +54,26 @@ const Main: React.FC<Movies> = () => {
     setQuery(e.target.value);
   };
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-  }
-
   return (
     <MainBlock>
-      <Header handleChange={handleChange} handleSubmit={handleSubmit} query={query} />
+      <Header handleChange={handleChange} query={query} />
       
-      <MenuBlock>
+      <SearchBlock>
         {
           loading ? (
             <p>Loading...</p>
           ) : (
-              movies &&
-              <MenuBlock>
-                {
-                  movies.map(movie => (
-                    <MovieComponent movie={movie} key={movie.id} />
-                  ))
-                }
-                {
-                  totalPages > 1 ? (
-                    <div>
-                      <button onClick={goPrev}>Prev</button>
-                      <button onClick={goNext}>Next</button>
-                    </div>
-                  ) : (null)
-                }
-              </MenuBlock>
+            <>
+              {movies && movies.slice(0, 3).map(movie => (
+                <MovieComponent movie={movie} key={movie.id} />
+              ))}
+              <ViewResultsBlock>
+                <input type="submit" value="View All Results" />
+              </ViewResultsBlock>
+            </>
           )
         }
-      </MenuBlock>
+      </SearchBlock>
     </MainBlock>
   );
 };

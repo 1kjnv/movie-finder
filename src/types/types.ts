@@ -2,8 +2,10 @@ export interface Movie {
 	id: number,
 	title: string,
 	release_date: string,
-	overview: string | null,
+	overview: string,
 	poster_path: string,
+	runtime: number,
+	vote_average: number,
 };
 
 export interface Movies {
