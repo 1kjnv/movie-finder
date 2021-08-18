@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Movies } from '../types/types';
-import MovieComponent from './Movie';
+import MovieComponent, { MovieInSearch } from './Movie';
 import Header from './Header';
 import { MenuBlock } from '../styles/Menu';
 import { Pagination } from '../styles/Pagination';
@@ -25,6 +25,19 @@ const Main: React.FC<Movies> = () => {
       setQuery(queryFromStorage);
     }
   }, [])
+
+  async function fetchMovies() {
+    setLoading(true);
+    fetch(`https://api.themoviedb.org/3/search/movie?api_key=a1279933de606b4374a2c93a1d0127a9&query=${query}&page=${pageNumber}`)
+      .then(res => res.json())
+      .then(({ total_pages, results }) => {
+        setMovies(results);
+        setTotalPages(total_pages);
+        setQuery("");
+      })
+      .catch(err => console.log(err))
+    setLoading(false);
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -54,26 +67,32 @@ const Main: React.FC<Movies> = () => {
     setQuery(e.target.value);
   };
 
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    await fetchMovies();
+  };
+
   return (
     <MainBlock>
       <Header handleChange={handleChange} query={query} />
-      
-      <SearchBlock>
-        {
-          loading ? (
-            <p>Loading...</p>
-          ) : (
-            <>
-              {movies && movies.slice(0, 3).map(movie => (
-                <MovieComponent movie={movie} key={movie.id} />
-              ))}
-              <ViewResultsBlock>
-                <input type="submit" value="View All Results" />
-              </ViewResultsBlock>
-            </>
-          )
-        }
-      </SearchBlock>
+
+      { query ? (
+          <SearchBlock>
+            {movies && movies.slice(0, 3).map(movie => (
+              <MovieInSearch movie={movie} key={movie.id} />
+            ))}
+            <ViewResultsBlock>
+              <input type="submit" value="View All Results" onClick={handleSubmit} />
+            </ViewResultsBlock>
+          </SearchBlock>
+        ) : (
+          <>
+            {movies && movies.map(movie => (
+              <MovieComponent movie={movie} key={movie.id} />
+            ))}
+          </>
+        )
+      }
     </MainBlock>
   );
 };
