@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Movies } from '../types/types';
-import MovieComponent from './Movie';
-import Header from './Header';
-import { MenuBlock } from '../styles/Menu';
-import { Pagination } from '../styles/Pagination';
-import { MainBlock } from '../styles/Main';
+import { Movies } from './interfaces';
+import MovieComponent from '../Movie';
+import Header from '../Header';
+import { MenuBlock } from './styled';
+import { Pagination } from './styled';
+import { MainBlock } from './styled';
 
-const Main: React.FC<Movies> = () => {
-
-  const [movies, setMovies] = useState([]);
+const Main = () => {
+  const [movies, setMovies] = useState<Movies>();
   const [query, setQuery] = useState("");
 	const [totalPages, setTotalPages] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
@@ -72,7 +71,7 @@ const Main: React.FC<Movies> = () => {
               <MenuBlock>
                 {
                   movies.map(movie => (
-                    <MovieComponent movie={movie} key={movie.id} />
+                    <MovieComponent {...movie} key={movie.id} />
                   ))
                 }
                 {
