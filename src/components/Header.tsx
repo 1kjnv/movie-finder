@@ -1,7 +1,5 @@
 import React from 'react';
 import { HeaderBlock, Searchbar } from '../styles/Header';
-import { Link } from 'react-router-dom';
-import { ProgressPlugin } from 'webpack';
 
 const Header = (props: any) => {
   return (

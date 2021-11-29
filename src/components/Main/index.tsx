@@ -1,45 +1,44 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Movies } from './interfaces';
 import MovieComponent from '../Movie';
 import Header from '../Header';
 import { MenuBlock } from './styled';
-import { Pagination } from './styled';
 import { MainBlock } from './styled';
 
 const Main = () => {
   const [movies, setMovies] = useState<Movies>();
+  const [searchResults, setSearchResults] = useState<Movies>();
   const [query, setQuery] = useState("");
-	const [totalPages, setTotalPages] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
-	const [loading, setLoading] = useState(false);
-
-  const pages = new Array(totalPages).fill(null).map((v, i) => i);
-
-  useEffect(() => {
-    const moviesFromStorage = localStorage.getItem('movies');
-    const queryFromStorage = localStorage.getItem('query');
-    if(moviesFromStorage && queryFromStorage) {
-      setMovies(JSON.parse(moviesFromStorage));
-      setQuery(queryFromStorage);
-    }
-  }, [])
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
-    fetch(`https://api.themoviedb.org/3/search/movie?api_key=a1279933de606b4374a2c93a1d0127a9&query=${query}&page=${pageNumber}`)
-      .then(res => res.json())
+    fetch(`http://api.themoviedb.org/3/movie/popular?api_key=a1279933de606b4374a2c93a1d0127a9&page=${pageNumber}`)
+      .then((res) => res.json())
       .then(({ total_pages, results, page }) => {
         setMovies(results);
         setTotalPages(total_pages);
         setPageNumber(page);
-        localStorage.setItem('movies', JSON.stringify(movies));
-        localStorage.setItem('query', query);
-        localStorage.setItem('pageNumber', page);
-        console.log(`page: ${page}`);
-        console.log(`total pages: ${total_pages}`);
       })
-      .catch(err => console.log(err))
+    .catch((err) => console.error(err));
     setLoading(false);
+  }, []);
+
+  useEffect(() => {
+    if(query) {
+      setLoading(true);
+      fetch(`http://api.themoviedb.org/3/search/movie?api_key=a1279933de606b4374a2c93a1d0127a9&query=${query}&page=${pageNumber}`)
+        .then((res) => res.json())
+        .then(({ total_pages, page, results }) => {
+          setSearchResults(results);
+          setTotalPages(total_pages);
+          setPageNumber(page);
+        })
+        .catch((err) => console.error(err));
+      setLoading(false);
+    }
   }, [query, pageNumber]);
 
   const goPrev = () => {
@@ -56,34 +55,50 @@ const Main = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-  }
+  };
 
   return (
     <MainBlock>
-      <Header handleChange={handleChange} handleSubmit={handleSubmit} query={query} />
-      
+      <Header
+        handleChange={handleChange}
+        query={query}
+        handleSubmit={handleSubmit}
+      />
+
       <MenuBlock>
         {
           loading ? (
             <p>Loading...</p>
           ) : (
-              movies &&
-              <MenuBlock>
-                {
-                  movies.map(movie => (
-                    <MovieComponent {...movie} key={movie.id} />
-                  ))
-                }
-                {
-                  totalPages > 1 ? (
-                    <div>
-                      <button onClick={goPrev}>Prev</button>
-                      <button onClick={goNext}>Next</button>
-                    </div>
-                  ) : (null)
-                }
-              </MenuBlock>
-          )
+          searchResults ? (
+            <MenuBlock>
+              {
+                searchResults.map((movie) => (
+                  <MovieComponent {...movie} key={movie.id} />
+                ))
+              }
+              {
+                totalPages > 1 ? (
+                  <div>
+                    <button onClick={goPrev}>Prev</button>
+                    <button onClick={goNext}>Next</button>
+                  </div>
+                ) : null
+              }
+            </MenuBlock>
+          ) : (
+            <MenuBlock>
+              {movies && movies.map(movie => (
+                <MovieComponent {...movie} key={movie.id} />
+              ))}
+              {totalPages > 1 ? (
+                <div>
+                  <button onClick={goPrev}>Prev</button>
+                  <button onClick={goNext}>Next</button>
+                </div>
+              ) : null}
+            </MenuBlock>
+          ))
         }
       </MenuBlock>
     </MainBlock>

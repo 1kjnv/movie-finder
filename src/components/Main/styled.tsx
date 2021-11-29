@@ -4,10 +4,6 @@ export const MenuBlock = styled.div`
 margin-top: 5%;
 `;
 
-export const Pagination = styled.div`
-
-`;
-
 export const MainBlock = styled.div`
 margin: auto;
 width: 100%;
