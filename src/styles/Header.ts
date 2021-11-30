@@ -7,11 +7,11 @@ export const HeaderBlock = styled.div`
 `;
 
 export const Searchbar = styled.div`
-  border: 1px solid green;
   width: 50%;
   margin-left: auto;
   margin-right: auto;
-  
+  display: flex; 
+
   #searchArea {
     width: 80%;
   }

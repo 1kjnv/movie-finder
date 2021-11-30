@@ -22,9 +22,9 @@ const Main = () => {
         setTotalPages(total_pages);
         setPageNumber(page);
       })
-    .catch((err) => console.error(err));
-    setLoading(false);
-  }, []);
+      .catch((err) => console.error(err))
+      .then(() => setTimeout(() => setLoading(false), 1000));
+  }, [pageNumber]);
 
   useEffect(() => {
     if(query) {
@@ -36,8 +36,8 @@ const Main = () => {
           setTotalPages(total_pages);
           setPageNumber(page);
         })
-        .catch((err) => console.error(err));
-      setLoading(false);
+        .catch((err) => console.error(err))
+        .then(() => setTimeout(() => setLoading(false), 1000));
     }
   }, [query, pageNumber]);
 
