@@ -1,3 +1,3 @@
-import { MovieProps } from "../Movie/interfaces";
+import { MovieProps } from '../Movie/interfaces';
 
 export type Movies = MovieProps[];

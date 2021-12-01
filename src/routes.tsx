@@ -12,7 +12,7 @@ const Routes: React.FC = () => {
         <Route path="/movie/:id" component={MovieDetails} exact />
       </Switch>
     </BrowserRouter>
-  )
+  );
 };
 
 export default Routes;

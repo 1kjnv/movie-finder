@@ -1,5 +1,5 @@
 export interface HeaderProps {
-	handleSubmit:		Function;
-	handleChange:		Function;
-	query:					string;
-};
+  handleSubmit: Function;
+  handleChange: Function;
+  query: string;
+}
