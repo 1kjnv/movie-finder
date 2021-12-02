@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Movies } from './interfaces';
 import MovieComponent from '../Movie';
 import Header from '../Header';
-import { MenuBlock } from './styled';
+import { LoadingBlock, MenuBlock } from './styled';
 import { MainBlock } from './styled';
 
 const Main = () => {
@@ -12,11 +12,12 @@ const Main = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [category, setCategory] = useState<string>('popular');
 
   useEffect(() => {
     setLoading(true);
     fetch(
-      `http://api.themoviedb.org/3/movie/popular?api_key=a1279933de606b4374a2c93a1d0127a9&page=${pageNumber}`,
+      `http://api.themoviedb.org/3/movie/${category}?api_key=a1279933de606b4374a2c93a1d0127a9&page=${pageNumber}`,
     )
       .then((res) => res.json())
       .then(({ total_pages, results, page }) => {
@@ -26,7 +27,13 @@ const Main = () => {
       })
       .catch((err) => console.error(err))
       .then(() => setTimeout(() => setLoading(false), 1000));
-  }, [pageNumber]);
+  }, [category, pageNumber]);
+
+  // set movie category on click
+  const handleCategory = (e: string) => {
+    console.log('set category to', e);
+    setCategory(e);
+  };
 
   useEffect(() => {
     if (query) {
@@ -63,11 +70,18 @@ const Main = () => {
 
   return (
     <MainBlock>
-      <Header handleChange={handleChange} query={query} handleSubmit={handleSubmit} />
+      <Header
+        handleChange={handleChange}
+        query={query}
+        handleSubmit={handleSubmit}
+        handleCategory={handleCategory}
+      />
 
       <MenuBlock>
         {loading ? (
-          <p>Loading...</p>
+          <LoadingBlock>
+            <h4>Loading...</h4>
+          </LoadingBlock>
         ) : searchResults ? (
           <MenuBlock>
             {searchResults.map((movie) => (

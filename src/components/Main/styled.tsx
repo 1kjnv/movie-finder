@@ -7,7 +7,10 @@ export const MenuBlock = styled.div`
 export const MainBlock = styled.div`
   margin: auto;
   width: 100%;
-  border: 1px solid silver;
   padding-bottom: 3%;
   background: #fffefc;
+`;
+
+export const LoadingBlock = styled.div`
+  text-align: center;
 `;
