@@ -19,7 +19,7 @@ const MovieComponent = ({ id, title, poster_path }: MovieProps) => {
     <MovieBlock>
       <Link to={`/movie/${encodeURIComponent(id)}`}>
         <img src={getImage(poster_path)} alt="img" />
-        <p>{title}</p>
+        <p id="name">{title.length > 30 ? title.split(' ').slice(0, 3) : title}</p>
       </Link>
     </MovieBlock>
   );

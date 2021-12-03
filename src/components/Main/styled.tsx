@@ -13,4 +13,23 @@ export const MainBlock = styled.div`
 
 export const LoadingBlock = styled.div`
   text-align: center;
+  margin-top: 25%;
+`;
+
+export const Pagination = styled.div`
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: center;
+  grid-column-gap: 3%;
+  border: 2px solid black;
+
+  button {
+    font-size: 20px;
+    width: 150%;
+  }
+`;
+
+export const ErrorMessage = styled.div`
+  text-align: center;
+  margin-top: 25%;
 `;

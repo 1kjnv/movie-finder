@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Movies } from './interfaces';
 import MovieComponent from '../Movie';
 import Header from '../Header';
-import { LoadingBlock, MenuBlock } from './styled';
+import { LoadingBlock, MenuBlock, Pagination, ErrorMessage } from './styled';
 import { MainBlock } from './styled';
 
 const Main = () => {
@@ -13,6 +13,7 @@ const Main = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState<string>('popular');
+  const [error, setError] = useState<string>('');
 
   useEffect(() => {
     setLoading(true);
@@ -25,7 +26,7 @@ const Main = () => {
         setTotalPages(total_pages);
         setPageNumber(page);
       })
-      .catch((err) => console.error(err))
+      .catch((err) => setError(err))
       .then(() => setTimeout(() => setLoading(false), 1000));
   }, [category, pageNumber]);
 
@@ -47,7 +48,7 @@ const Main = () => {
           setTotalPages(total_pages);
           setPageNumber(page);
         })
-        .catch((err) => console.error(err))
+        .catch((err) => setError(err))
         .then(() => setTimeout(() => setLoading(false), 1000));
     }
   }, [query, pageNumber]);
@@ -68,6 +69,13 @@ const Main = () => {
     e.preventDefault();
   };
 
+  if(error) {
+    return (
+      <ErrorMessage>
+        <h4>{error}</h4>
+      </ErrorMessage>
+    )
+  };
   return (
     <MainBlock>
       <Header
@@ -98,10 +106,10 @@ const Main = () => {
           <MenuBlock>
             {movies && movies.map((movie) => <MovieComponent {...movie} key={movie.id} />)}
             {totalPages > 1 ? (
-              <div>
+              <Pagination>
                 <button onClick={goPrev}>Prev</button>
                 <button onClick={goNext}>Next</button>
-              </div>
+              </Pagination>
             ) : null}
           </MenuBlock>
         )}
