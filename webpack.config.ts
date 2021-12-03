@@ -28,5 +28,8 @@ module.exports = {
 		contentBase: path.join(__dirname, 'build'),
 		compress: true,
 		port: 4000,
+		open: true,
+		host: '172.30.1.49',
+		disableHostCheck: true
 	}
 };

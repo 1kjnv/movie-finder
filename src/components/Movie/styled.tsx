@@ -1,20 +1,33 @@
 import styled from 'styled-components';
 
 export const MovieBlock = styled.div`
-  @media (min-width: 325px) {
+  @media only screen and (min-width: 320px) {
     display: inline-flex;
     text-align: center;
-
-    margin-left: auto;
-    margin-right: auto;
-
-    border: 2px solid red;
     width: 100%;
-
+    
     img {
       width: 100%;
     }
 
+    #name {
+      margin-top: -0.5%;
+    }
+
+    a {
+      text-decoration: none;
+      font-weight: bold;
+    }
+  };
+
+  @media only screen and (min-width: 414px) {
+    display: block;
+    text-align: center;
+    width: 100%;
+    img {
+      width: 100%;
+    }
+    
     a {
       text-decoration: none;
       color: black;
@@ -26,7 +39,13 @@ export const MovieBlock = styled.div`
     }
   };
 
-  @media (min-width: 1024px) {
+  @media only screen and (min-width: 624px) {
+    body {
+      background-color: yellow;
+    }
+  }
+
+  @media only screen and (min-width: 1024px) {
     display: inline-flex;
     width: 24%;
     height: 30%;
