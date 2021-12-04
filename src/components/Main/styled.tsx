@@ -5,27 +5,30 @@ export const MenuBlock = styled.div`
 `;
 
 export const MainBlock = styled.div`
-  margin: auto;
   width: 100%;
-  padding-bottom: 3%;
+  padding-bottom: 5%;
   background: #fffefc;
 `;
 
 export const LoadingBlock = styled.div`
-  text-align: center;
-  margin-top: 25%;
+  @media only screen and (min-width: 320px) {
+    text-align: center;
+    margin-top: 55%;
+    font-size: 50px;
+  }
 `;
 
 export const Pagination = styled.div`
-  display: grid;
-  grid-auto-flow: column;
-  justify-content: center;
-  grid-column-gap: 3%;
-  border: 2px solid black;
+  @media only screen and (min-width: 320px) {
+    margin: auto;
+    width: 50%;
 
-  button {
-    font-size: 20px;
-    width: 150%;
+    button {
+      font-size: 50px;
+      background-color: #008CBA;
+      color: white;
+      width: 50%;
+    }
   }
 `;
 

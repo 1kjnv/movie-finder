@@ -29,7 +29,7 @@ module.exports = {
 		compress: true,
 		port: 4000,
 		open: true,
-		host: '172.30.1.49',
+		host: '172.30.1.8',
 		disableHostCheck: true
 	}
 };
