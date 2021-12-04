@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const MenuBlock = styled.div`
-  margin-top: 5%;
+  margin-top: 25%;
 `;
 
 export const MainBlock = styled.div`

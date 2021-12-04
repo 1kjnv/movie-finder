@@ -4,7 +4,12 @@ import { Link } from 'react-router-dom';
 
 const BurgerBtn = ({ open, setOpen }: any) => {
   return (
-    <StyledBurger {...open} {...setOpen}>
+    <StyledBurger
+      {...open}
+      onClick={() => {
+        setOpen(!open);
+        console.log(!open);
+      }}>
       <div />
       <div />
       <div />
@@ -12,16 +17,18 @@ const BurgerBtn = ({ open, setOpen }: any) => {
   )
 };
 
-const Menu = ({ handleCategory }) => {
+const Menu = ({ open }: any) => {
+  console.log('menu open', open);
+
   return (
-    <Navbar>
-      <Link to="#" onClick={() => handleCategory('top_rated')}>
+    <Navbar {...open}>
+      <Link to="#">
         Top rated
       </Link>
-      <Link to="#" onClick={() => handleCategory('upcoming')}>
+      <Link to="#">
         Upcoming
       </Link>
-      <Link to="#" onClick={() => handleCategory('popular')}>
+      <Link to="#">
         Popular
       </Link>
     </Navbar>
@@ -29,11 +36,15 @@ const Menu = ({ handleCategory }) => {
 };
 
 const Header = (props: any) => {
-  const { open, setOpen } = props;
+  const [open, setOpen] = React.useState<boolean>(false);
   const node = useRef();
+
   return (
     <HeaderBlock>
-      <BurgerBtn {...open} {...setOpen} />
+      <div ref={node}>
+        <BurgerBtn open={open} setOpen={setOpen} />
+        <Menu open={open} handleCategory={props.handleCategory} />
+      </div>
     </HeaderBlock>
   );
 };

@@ -79,14 +79,6 @@ const Main = () => {
   };
   return (
     <MainBlock>
-      <Header
-        handleChange={handleChange}
-        query={query}
-        handleSubmit={handleSubmit}
-        handleCategory={handleCategory}
-        open={open}
-      />
-
       <MenuBlock>
         {loading ? (
           <LoadingBlock>

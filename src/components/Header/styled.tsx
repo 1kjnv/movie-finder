@@ -1,15 +1,6 @@
 import styled from 'styled-components';
 
 export const HeaderBlock = styled.div`
-  border: 2px solid black;
-  width: 100%;
-  display: none;
-
-  @media only screen and (min-width: 320px) {
-    font-size: 50px;
-    display: inline-flex;
-    justify-content: center;
-  };
 `;
 
 export const Searchbar = styled.div`
@@ -26,18 +17,19 @@ export const Navbar = styled.nav`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background: #effffa;
+  background: #EFFFFA;
   transform: ${({ open }) => open ? 'translateX(0)' : 'translateX(-100%)'};
   height: 100vh;
   text-align: left;
-  padding: absolute;
+  padding: 2rem;
+  position: absolute;
   top: 0;
   left: 0;
   transition: transform 0.3s ease-in-out;
 
   @media (max-width: 576px) {
-    width: 100%:
-  }
+      width: 100%;
+    }
 
   a {
     font-size: 2rem;
@@ -46,9 +38,17 @@ export const Navbar = styled.nav`
     font-weight: bold;
     letter-spacing: 0.5rem;
     color: #0D0C1D;
-    transition: color 0.3s linear;
     text-decoration: none;
-    color: black;
+    transition: color 0.3s linear;
+
+    @media (max-width: 576px) {
+      font-size: 1.5rem;
+      text-align: center;
+    }
+
+    &:hover {
+      color: #343078;
+    }
   }
 `;
 
@@ -67,14 +67,14 @@ export const StyledBurger = styled.button`
   padding: 0;
   z-index: 10;
 
-  &:hover {
+  &:focus {
     outline: none;
   }
 
   div {
     width: 2rem;
     height: 0.25rem;
-    background: ${({ open }) => open ? '#0D0C1D' : '#EFFFFA'};
+    background: ${({ open }) => open ? 'black' : 'red'};
     border-radius: 10px;
     transition: all 0.3s linear;
     position: relative;
@@ -90,7 +90,7 @@ export const StyledBurger = styled.button`
     }
 
     :nth-child(3) {
-      transform: ${({ open }) => open ? 'rotate(-45deg' : 'rotate(0)'};
+      transform: ${({ open }) => open ? 'rotate(-45deg)' : 'rotate(0)'};
     }
   }
 `;
