@@ -7,11 +7,11 @@ export const MovieBlock = styled.div`
     width: 100%;
     
     img {
-      width: 100%;
+      width: 90%;
     }
 
     #name {
-      margin-top: -0.5%;
+      font-size: 50px;
     }
 
     a {

@@ -14,6 +14,7 @@ const Main = () => {
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState<string>('popular');
   const [error, setError] = useState<string>('');
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -83,6 +84,7 @@ const Main = () => {
         query={query}
         handleSubmit={handleSubmit}
         handleCategory={handleCategory}
+        open={open}
       />
 
       <MenuBlock>
